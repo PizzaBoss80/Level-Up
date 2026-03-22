@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOPPERS CORE QUEST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-red: #ff003c;
+            --neon-gold: #ffcc00;
+            --arcade-black: #0d0d0d;
+            --pixel-font: 'Press Start 2P', cursive;
+            --ui-font: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: var(--arcade-black);
+            color: white;
+            font-family: var(--ui-font);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 500px;
+            border: 4px solid var(--neon-red);
+            background: rgba(20, 20, 20, 0.9);
+            padding: 20px;
+            box-shadow: 0 0 20px var(--neon-red), inset 0 0 10px var(--neon-red);
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: var(--pixel-font);
+            font-size: 16px;
+            text-align: center;
+            color: var(--neon-gold);
+            text-shadow: 3px 3px 0px var(--neon-red);
+            margin-bottom: 25px;
+        }
+
+        .leaderboard {
+            margin-bottom: 30px;
+            border: 2px solid var(--neon-gold);
+            padding: 10px;
+            background: #1a1a1a;
+        }
+
+        .leaderboard h2 {
+            font-family: var(--pixel-font);
+            font-size: 10px;
+            color: var(--neon-gold);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .rank-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #333;
+            font-family: var(--pixel-font);
+            font-size: 10px;
+        }
+
+        .rank-1 { color: #ffcc00; text-shadow: 0 0 5px #ffcc00; }
+        .rank-2 { color: #c0c0c0; }
+        .rank-3 { color: #cd7f32; }
+
+        label { display: block; font-size: 0.8rem; color: var(--neon-gold); margin-top: 15px; margin-bottom: 5px;}
+        
+        .input-box {
+            background: #1a1a1a;
+            border: 2px solid #444;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: var(--ui-font);
+            font-size: 1.1rem;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .value-btn {
+            background: #222;
+            border: 2px solid #444;
+            color: #aaa;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .value-btn.active {
+            border-color: var(--neon-red);
+            color: white;
+            background: rgba(255, 0, 60, 0.2);
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        .btn-launch {
+            width: 100%;
+            background: var(--neon-red);
+            color: white;
+            font-family: var(--pixel-font);
+            font-size: 14px;
+            padding: 15px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            text-shadow: 2px 2px 0px #000;
+            box-shadow: 0 5px 0px #800020;
+        }
+
+        .btn-launch:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0px #800020;
+        }
+
+        #log {
+            margin-top: 25px;
+            border-top: 2px dashed #444;
+            padding-top: 15px;
+        }
+
+        .achievement {
+            background: #1a1a1a;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--neon-gold);
+            animation: pop 0.4s ease-out;
+        }
+
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>TOPPERS CORE QUEST</h1>
+
+    <div class="leaderboard">
+        <h2>--- TOP 3 PLAYERS ---</h2>
+        <div class="rank-row rank-1"><span>1ST</span> <span id="top1">AIDAN</span> <span>9999 XP</span></div>
+        <div class="rank-row rank-2"><span>2ND</span> <span id="top2">NINA</span> <span>7500 XP</span></div>
+        <div class="rank-row rank-3"><span>3RD</span> <span id="top3">CHRISTUS</span> <span>5000 XP</span></div>
+    </div>
+    
+    <label>SELECT TEAM MEMBER (PLAYER 2)</label>
+    <select id="p2Name" class="input-box">
+        <option value="">-- Choose Name --</option>
+        <option>Christus</option><option>Tori</option><option>Aidan</option>
+        <option>Brandon</option><option>Nina</option><option>Cora</option>
+        <option>Ayla</option><option>John</option><option>Jonny</option>
+        <option>Alex</option><option>Kyndal</option><option>Ed</option>
+        <option>Dashon</option><option>Andrea</option><option>Theo</option>
+        <option>Justin</option><option>Patrick</option><option>Gaberiel</option>
+        <option>Isaac</option><option>Lucas</option><option>Quinn</option>
+        <option>Lane</option><option>Dru</option>
+    </select>
+
+    <label>CORE VALUE POWER-UP</label>
+    <div class="value-grid">
+        <div class="value-btn" onclick="selectValue(this, 'INTEGRITY')">🛡️ Integrity</div>
+        <div class="value-btn" onclick="selectValue(this, 'ENERGY')">⚡ Energy</div>
+        <div class="value-btn" onclick="selectValue(this, 'TEAMWORK')">🤝 Teamwork</div>
+        <div class="value-btn" onclick="selectValue(this, 'EXCELLENCE')">👑 Excellence</div>
+    </div>
+
+    <label>MISSION DEBRIEF</label>
+    <textarea id="mission" class="input-box" style="height: 60px;" placeholder="What did they do?"></textarea>
+
+    <button class="btn-launch" onclick="launchProps()">SUBMIT PROPS [START]</button>
+
+    <div id="log"></div>
+</div>
+
+<script>
+    let selectedValue = "";
+    // CHANGE THIS TO YOUR ACTUAL EMAIL
+    const GM_EMAIL = "your-email@example.com"; 
+
+    function selectValue(el, val) {
+        document.querySelectorAll('.value-btn').forEach(btn => btn.classList.remove('active'));
+        el.classList.add('active');
+        selectedValue = val;
+    }
+
+    function launchProps() {
+        const name = document.getElementById('p2Name').value;
+        const msg = document.getElementById('mission').value;
+        const log = document.getElementById('log');
+
+        if (!name || !selectedValue || !msg) {
+            alert("⚠️ MISSION INCOMPLETE! CHOOSE A PLAYER & VALUE!");
+            return;
+        }
+
+        // 1. Visual Update on the screen
+        const entry = document.createElement('div');
+        entry.className = 'achievement';
+        entry.innerHTML = `<span style="color:var(--neon-gold)">🏆 QUEST SUBMITTED!</span><br>
+            <strong>${name}</strong> triggered <strong>${selectedValue}</strong>!<br>
+            <span style="font-size:0.8rem; color:#888;">"${msg}"</span>`;
+        log.prepend(entry);
+
+        // 2. Email Relay - Opens the user's email app automatically
+        const subject = encodeURIComponent(`CORE QUEST: Props for ${name}`);
+        const body = encodeURIComponent(`Team Member: ${name}\nCORE Value: ${selectedValue}\n\nMission Details:\n${msg}`);
+        window.location.href = `mailto:${GM_EMAIL}?subject=${subject}&body=${body}`;
+
+        // Reset fields
+        document.getElementById('p2Name').value = "";
+        document.getElementById('mission').value = "";
+        document.querySelectorAll('.value-btn').forEach(btn => btn.classList.remove('active'));
+        selectedValue = "";
+    }
+</script>
+
+</body>
+</html>
